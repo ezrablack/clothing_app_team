@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 2020_03_24_163459) do
   create_table "purchases", force: :cascade do |t|
     t.integer "item_id"
     t.integer "user_id"
+    t.string "item_name"
+    t.float "total_price"
   end
 
   create_table "users", force: :cascade do |t|
