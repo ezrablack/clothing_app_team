@@ -1,2 +1,2 @@
-class CreateItem < ActiveRecord::Base
+class Item < ActiveRecord::Base
 end 
