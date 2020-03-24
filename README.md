@@ -27,11 +27,11 @@
     ** size
     ** stock
     
-# Purhcase(Cart) (belongs to store and user)
+<!-- # Purhcase(Cart) (belongs to store and user)
     * has user/item id([4, 5, 6])
     * contains items from store belong to user
     * total items
-    * total cost
+    * total cost -->
 
 # Purhcase (belongs to store and user)
     * has user/store id 
