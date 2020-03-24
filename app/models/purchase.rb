@@ -1,2 +1,2 @@
-class CreatePurchase < ActiveRecord::Base
+class Purchase < ActiveRecord::Base
 end
