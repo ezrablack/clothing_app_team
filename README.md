@@ -24,14 +24,18 @@
 # Clothing Item Properties: (has a purchase, has a user through a purchase)
     * name
     * cost
-    * size
+    ** size
     ** stock
     
 # Purhcase(Cart) (belongs to store and user)
-    * has user/store id 
+    * has user/item id([4, 5, 6])
     * contains items from store belong to user
     * total items
     * total cost
+
+# Purhcase (belongs to store and user)
+    * has user/store id 
+    * contains items from store belong to user
 
 # User Properties: (has many purchases, has many clothing items through purchases)
     * username  
