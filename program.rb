@@ -56,13 +56,23 @@ loop do
     end
 
     if(user_choice == "View my Cart")
-        if current_user.purchases.length > 0
+        if current_user.purchases > 0
             current_user.purchases.each do | purchase |
                 puts "Item: #{purchase.item_name}, Price: #{purchase.total_price}"
             end
         else
             puts "You have not made any purchases yet." # offer a coupon code here in the future
         end 
+        # cart_choices = prompt.select('What would you like to do?', [
+        #     "Remove an Item",
+        #     "Exit"
+        # ])
+        # if(cart_choices == "Remove an Item")
+        #     item_to_delete = prompt.select("Which item would you like to delete?", cart_items)
+        #     item_to_delete.destroy
+        #     return cart_items
+        # end   
+            
     end
 
     if(user_choice == "Checkout")
