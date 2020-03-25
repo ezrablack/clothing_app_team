@@ -51,8 +51,13 @@ loop do
 
     if(user_choice == "Browse Items")
         selected_item = prompt.select('Choose an Item:', item_options)
-
-        Purchase.create(item_id: selected_item.id, user_id: current_user.id, item_name: selected_item.name, total_price: selected_item.price)
+        if selected_item.stock == 0
+            puts "#{selected_item.name} is currently out of stock."
+        else
+            Purchase.create(item_id: selected_item.id, user_id: current_user.id, item_name: selected_item.name, total_price: selected_item.price)
+            selected_item.stock -= 1
+            selected_item.save
+        end
     end
 
     if(user_choice == "View my Cart")
@@ -87,9 +92,6 @@ loop do
             puts "Total is #{cart_total}"
         end 
     end
-    
-    
-    
 end 
 # def apply_discount
 #     if self.discount > 0
