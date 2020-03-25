@@ -67,9 +67,34 @@ loop do
             cart_total += purchase.total_price
         end
         puts cart_total
+        discount_code = prompt.yes?("Do you have a discount code? ")
+        if discount_code == true
+            has_code = prompt.ask("Please enter your discount code: ")
+            code = Discount.where(name: has_code)
+            puts code
+            if has_code == code[0]
+                valid_code = code[0]
+                discount_value = valid_code.value * 0.01
+                new_cart_total = cart_total - discount_value
+                puts "Discount Applied"
+                puts new_cart_total
+            else 
+                puts "Code is incorrect, please try again."
+            end
+        else 
+            puts "Total is #{cart_total}"
+        end 
     end
     
-
-    # ^^ Use line 52-59 when we add stock to items
-
+    
+    
 end 
+# def apply_discount
+#     if self.discount > 0
+#         self.discount = (self.discount.to_f * 0.01) * self.total
+#         self.total = (self.total - self.discount).to_i
+#         return "After the discount, the total comes to $800."
+#     else
+#         return "There is no discount to apply."
+#     end
+# end
