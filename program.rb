@@ -21,7 +21,7 @@ loop do
     if(login_options == "Login")
         user_name = prompt.ask("Username:")
         if users.include?(user_name)
-            current_user = User.where(name: user_name)
+            current_user = User.find_by(name: user_name)
             break
         else
             puts "This username does not exist, please try again or sign up."
@@ -44,8 +44,15 @@ loop do
         "See my Purchases"
     ])
 
+    if(user_choice == "Purchase an Item")
+        selected_item = prompt.select('Choose an Item:', item_options)
+
+        Purchase.create(item_id: selected_item.id, user_id: current_user.id, item_name: selected_item.name, total_price: selected_item.price)
+
+    end
+
     if(user_choice == "See my Purchases")
-        if current_user.purchases.length < 0
+        if current_user.purchases.length > 0
             current_user.purchases.each do | purchase |
                 puts "Item: #{purchase.item_name}, Price: #{purchase.total_price}"
             end
@@ -54,20 +61,5 @@ loop do
         end 
     end
 
-    if(user_choice == "Purchase an Item")
-        selected_item = prompt.select('Choose an Item:', item_options)
 
-        # available_items = selected_item.tickets.where({ passenger_id: nil })
-
-        # ticket_options = available_tickets.map do | ticket |
-        #     {
-        #         name: "#{ticket.number}: #{ticket.departure_city}-#{ticket.destination_city} ($#{ticket.price})",
-        #         value: ticket
-        #     }
-        # end
-
-        # ^^ Use line 52-59 when we add stock to items
-
-
-    end
 end 

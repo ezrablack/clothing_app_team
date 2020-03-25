@@ -46,3 +46,16 @@
     * item name
     * item size
     * item price -->
+
+Stretch method example:
+
+        # available_items = selected_item.tickets.where({ passenger_id: nil })
+
+        # ticket_options = available_tickets.map do | ticket |
+        #     {
+        #         name: "#{ticket.number}: #{ticket.departure_city}-#{ticket.destination_city} ($#{ticket.price})",
+        #         value: ticket
+        #     }
+        # end
+
+        # ^^ Use line 52-59 when we add stock to items
