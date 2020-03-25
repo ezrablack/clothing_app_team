@@ -79,7 +79,7 @@ loop do
                 discount_value = (code.value.to_f * 0.01) * cart_total
                 new_cart_total = cart_total - discount_value
                 puts "Discount Applied"
-                puts new_cart_total
+                puts "Total is #{new_cart_total.round(2)}"
             else 
                 puts "Code is incorrect, please try again."
             end
