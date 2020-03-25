@@ -40,18 +40,18 @@ end
 # User's options
 loop do
     user_choice = prompt.select('What do you want to do?', [
-        "Purchase an Item",
-        "See my Purchases"
+        "Browse Items",
+        "View my Cart",
+        "Checkout"
     ])
 
-    if(user_choice == "Purchase an Item")
+    if(user_choice == "Browse Items")
         selected_item = prompt.select('Choose an Item:', item_options)
 
         Purchase.create(item_id: selected_item.id, user_id: current_user.id, item_name: selected_item.name, total_price: selected_item.price)
-
     end
 
-    if(user_choice == "See my Purchases")
+    if(user_choice == "View my Cart")
         if current_user.purchases.length > 0
             current_user.purchases.each do | purchase |
                 puts "Item: #{purchase.item_name}, Price: #{purchase.total_price}"
@@ -61,6 +61,15 @@ loop do
         end 
     end
 
-        # ^^ Use line 52-59 when we add stock to items
+    if(user_choice == "Checkout")
+        cart_total = 0
+        current_user.purchases.each do | purchase |
+            cart_total += purchase.total_price
+        end
+        puts cart_total
+    end
+    
+
+    # ^^ Use line 52-59 when we add stock to items
 
 end 
