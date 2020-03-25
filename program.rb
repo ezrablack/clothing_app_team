@@ -61,5 +61,6 @@ loop do
         end 
     end
 
+        # ^^ Use line 52-59 when we add stock to items
 
 end 
