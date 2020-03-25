@@ -74,11 +74,9 @@ loop do
         discount_code = prompt.yes?("Do you have a discount code? ")
         if discount_code == true
             has_code = prompt.ask("Please enter your discount code: ")
-            code = Discount.where(name: has_code)
-            puts code
-            if has_code == code[0]
-                valid_code = code[0]
-                discount_value = valid_code.value * 0.01
+            code = Discount.find_by({ name: has_code })
+            if has_code == code.name
+                discount_value = (code.value.to_f * 0.01) * cart_total
                 new_cart_total = cart_total - discount_value
                 puts "Discount Applied"
                 puts new_cart_total
