@@ -1,5 +1,5 @@
-d_angelo = User.create(name: "D'Angelo")
-chris = User.create(name: "Chris Angel")
+d_angelo = User.create(name: "D'Angelo", password:123)
+chris = User.create(name: "Chris Angel", password: 123)
 
 fancy_pants = Item.create(name: "Fancy Pants", price: 150.00)
 fancy_shirt = Item.create(name: "Fancy Shirt", price: 75.49)

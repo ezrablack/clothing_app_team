@@ -6,7 +6,7 @@ item_options = Item.all.map {| item | {name: item.name, value: item}}
 
 puts "Welcome to:"
 
-title = Artii::Base.new(:font => 'slant')
+title = Artii::Base.new(:font => 'slant') # Fonts to try: 5lineoblique, 
 puts title.asciify("Phashun Werld")
 
 prompt = TTY::Prompt.new()
@@ -20,18 +20,22 @@ loop do
     ])
     if(login_options == "Login")
         user_name = prompt.ask("Username:")
-        if users.include?(user_name)
+        heart = prompt.decorate(prompt.symbols[:heart] + ' ', :magenta)
+        password = prompt.mask("Password:", symbols: {mask: heart})
+        if users.include?(user_name) && User.find_by(password: password)
             current_user = User.find_by(name: user_name)
             break
         else
-            puts "This username does not exist, please try again or sign up."
+            puts "Username or password incorrect, please try again or sign up."
         end
     elsif(login_options == "Sign Up")
         user_name = prompt.ask("Username:")
         if users.include?(user_name)
             puts "This username already exists, please login or sign up with a new user"
         else
-            current_user = User.create({name: user_name})
+            heart = prompt.decorate(prompt.symbols[:heart] + ' ', :magenta)
+            password = prompt.mask("Password", symbols: {mask: heart})
+            current_user = User.create({name: user_name, password: password})
             break
         end
     end
