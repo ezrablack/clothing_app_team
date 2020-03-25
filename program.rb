@@ -1,64 +1,73 @@
 require_relative './config/environment.rb'
 
+users = User.all.map {|user| user.name}
+current_user = nil
+item_options = Item.all.map {| item | {name: item.name, value: item}}
+
 puts "Welcome to:"
 
-a = Artii::Base.new(:font => 'slant')
-puts a.asciify("Phashun Werld")
+title = Artii::Base.new(:font => 'slant')
+puts title.asciify("Phashun Werld")
 
 prompt = TTY::Prompt.new()
 
-user_choice = prompt.select('What do you want to do?', [
-    "Purchase an Item",
-    "See my Purchases"
-])
+# Login or Sign Up options
 
-if(user_choice == "See my Purchases")
-    user_name = prompt.ask("What's Your Name?")
-
-    users = User.where({ name: user_name })
-    if users.length == 0
-        current_user = User.create({ name: user_name })
-    else
-        current_user = users[0]
-    end
-
-    if current_user.purchases.length < 0
-        current_user.purchases.each do | purchase |
-            puts "Item: #{purchase.item_name}, Price: #{purchase.total_price}"
+loop do 
+    login_options = prompt.select('Sign in or create an account', [
+        "Login",
+        "Sign Up"
+    ])
+    if(login_options == "Login")
+        user_name = prompt.ask("Username:")
+        if users.include?(user_name)
+            current_user = User.where(name: user_name)
+            break
+        else
+            puts "This username does not exist, please try again or sign up."
         end
-    else
-        puts "You have not made any purchases yet." # offer a coupon code here in the future
-    end 
+    elsif(login_options == "Sign Up")
+        user_name = prompt.ask("Username:")
+        if users.include?(user_name)
+            puts "This username already exists, please login or sign up with a new user"
+        else
+            current_user = User.create({name: user_name})
+            break
+        end
+    end
 end
 
-if(user_choice == "Purchase an Item")
+# User's options
+loop do
+    user_choice = prompt.select('What do you want to do?', [
+        "Purchase an Item",
+        "See my Purchases"
+    ])
 
-    # all_items = Item.all.map do | item |
-    #     {
-    #         name: item.name, # <-- User sees this
-    #         value: item # <-- But we get back this
-    #     }
-    # end
-
-    item_options = Item.all.map do | item |
-        {
-            name: item.name, # <-- User sees this
-            value: item # <-- But we get back this
-        }
+    if(user_choice == "See my Purchases")
+        if current_user.purchases.length < 0
+            current_user.purchases.each do | purchase |
+                puts "Item: #{purchase.item_name}, Price: #{purchase.total_price}"
+            end
+        else
+            puts "You have not made any purchases yet." # offer a coupon code here in the future
+        end 
     end
 
-    selected_item = prompt.select('Choose an Item:', item_options)
+    if(user_choice == "Purchase an Item")
+        selected_item = prompt.select('Choose an Item:', item_options)
 
-    # available_items = selected_item.tickets.where({ passenger_id: nil })
+        # available_items = selected_item.tickets.where({ passenger_id: nil })
 
-    # ticket_options = available_tickets.map do | ticket |
-    #     {
-    #         name: "#{ticket.number}: #{ticket.departure_city}-#{ticket.destination_city} ($#{ticket.price})",
-    #         value: ticket
-    #     }
-    # end
+        # ticket_options = available_tickets.map do | ticket |
+        #     {
+        #         name: "#{ticket.number}: #{ticket.departure_city}-#{ticket.destination_city} ($#{ticket.price})",
+        #         value: ticket
+        #     }
+        # end
 
-    # ^^ Use line 52-59 when we add stock to items
+        # ^^ Use line 52-59 when we add stock to items
 
 
-end
+    end
+end 
