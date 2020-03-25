@@ -1,4 +1,4 @@
-# Clothing Store -< Clothing >- User
+# Item -< Purchases >- User
 
 # User Stories: 
     * User will be able to browse clothing store for clothing
@@ -7,9 +7,8 @@
 # MVP:
     * Should be able to see available clothing items
     * User should have cart with total items and total ticket
-    * Clothing store should update stock if user selects a piece
+    * Clothing store should update stock if user selects a piece 
     
-
 # Stretch Goals:
     * User can search clothing items by color
     * User can search by size
@@ -33,7 +32,7 @@
     * total items
     * total cost -->
 
-# Purhcase (belongs to store and user)
+# Purchase (belongs to store and user)
     * has user/store id 
     * contains items from store belong to user
 
