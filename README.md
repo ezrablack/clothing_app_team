@@ -1,23 +1,27 @@
 # Item -< Purchases >- User
 
 # User Stories: 
-    * User will be able to browse clothing store for clothing
-    * User can purchase item(s) of clothing
+    DONE* User will be able to browse clothing store for clothing
+    DONE* User can purchase item(s) of clothing
 
 # MVP:
-    * Should be able to see available clothing items
-    * User should have cart with total items and total ticket
-    * Clothing store should update stock if user selects a piece 
+    DONE* Should be able to see available clothing items
+    DONE* User should have cart with total items and total ticket
+    DONE* Clothing store should update stock if user selects a piece 
     
 # Stretch Goals:
+    * Items have/display multiple sizes and colors
     * User can search clothing items by color
     * User can search by size
     * User can search by price
-    * User can enter a discount code at purchase
-    * Build more models once base is working
-    ** Multiple purchases through multiple users 
-    ** User Login 
-    *** User can return and item of clothing
+    * Add quantity(qty) option where User can purchase multiple of same item
+    * Payment method after checkout
+    * Exit message that ends the program
+    DONE* User can enter a discount code at purchase
+    DONE* Build more models once base is working
+    DONE** Multiple purchases through multiple users 
+    DONE** User Login 
+    DONE*** User can return and item of clothing
     
 
 # Clothing Item Properties: (has a purchase, has a user through a purchase)
