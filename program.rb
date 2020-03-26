@@ -83,10 +83,9 @@ loop do
                 item_to_delete = prompt.select("Which item would you like to remove?", user_items) 
                 # item_to_delete = the item the user selects
                 binding.pry
-                id_to_delete = item_to_delete[0]
-                delete_item = cart.find_by(id_to_delete)
+                delete_item = cart.find_by(item_to_delete)
                 if cart.include?(delete_item)
-                    delete_item.destroy
+                    cart.delete(delete_item)
                     cart = current_user.purchases
                 end
                 puts cart
