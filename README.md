@@ -21,10 +21,10 @@
     
 
 # Clothing Item Properties: (has a purchase, has a user through a purchase)
-    * name
-    * cost
-    ** size
-    ** stock
+    DONE* name
+    DONE* cost
+    DONE** size
+    DONE** stock
     
 <!-- # Purhcase(Cart) (belongs to store and user)
     * has user/item id([4, 5, 6])
@@ -33,11 +33,11 @@
     * total cost -->
 
 # Purchase (belongs to store and user)
-    * has user/store id 
-    * contains items from store belong to user
+    DONE* has user/store id 
+    DONE* contains items from store belong to user
 
 # User Properties: (has many purchases, has many clothing items through purchases)
-    * username  
+    DONE* username  
 
 <!-- # Clothing Properties: (belongs to store and user)
     * brand name
