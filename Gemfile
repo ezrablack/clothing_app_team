@@ -9,5 +9,5 @@ gem "require_all"
 gem "sinatra-activerecord"
 
 gem "artii", "~> 2.1"
-
 gem "tty-prompt", "~> 0.21.0"
+gem "colorize"

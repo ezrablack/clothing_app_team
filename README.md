@@ -10,14 +10,18 @@
     DONE* Clothing store should update stock if user selects a piece 
     
 # Stretch Goals:
+    * Items have/display multiple sizes and colors
     * User can search clothing items by color
     * User can search by size
     * User can search by price
+    * Add quantity(qty) option where User can purchase multiple of same item
+    * Payment method after checkout
+    * Exit message that ends the program
     DONE* User can enter a discount code at purchase
     DONE* Build more models once base is working
     DONE** Multiple purchases through multiple users 
-    DONE** User Login 
-    DONE?*** User can return and item of clothing
+    DONE** User Login
+    DONE*** User can return and item of clothing
     
 
 # Clothing Item Properties: (has a purchase, has a user through a purchase)
