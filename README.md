@@ -20,7 +20,7 @@
     DONE* User can enter a discount code at purchase
     DONE* Build more models once base is working
     DONE** Multiple purchases through multiple users 
-    DONE** User Login 
+    DONE** User Login
     DONE*** User can return and item of clothing
     
 
