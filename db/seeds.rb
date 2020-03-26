@@ -16,4 +16,3 @@ fedora = Item.create(name: "M'Lady Fedora", price: 30.01, stock: 10)
 code10 = Discount.create(name: "CODE10", value: 10)
 code20 = Discount.create(name: "CODE20", value: 20)
 code25 = Discount.create(name: "CODE25", value: 25)
-
