@@ -3,10 +3,6 @@ describe(User) do
     before do
         @user = User.new("John", "123")
     end
-
-    it("user can login") do
-        
-    end
     
     # user can login
     # login fails if a user enters incorrect password
