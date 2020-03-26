@@ -14,31 +14,31 @@ prompt = TTY::Prompt.new()
 # Login or Sign Up options
 
 loop do 
-    login_options = prompt.select('Sign in or create an account', [
-        "Login",
-        "Sign Up"
-    ])
-    if(login_options == "Login")
-        user_name = prompt.ask("Username:")
-        heart = prompt.decorate(prompt.symbols[:heart] + ' ', :magenta)
-        password = prompt.mask("Password:", symbols: {mask: heart})
-        if users.include?(user_name) && User.find_by(password: password)
-            current_user = User.find_by(name: user_name)
-            break
-        else
-            puts "Username or password incorrect, please try again or sign up."
-        end
-    elsif(login_options == "Sign Up")
-        user_name = prompt.ask("Username:")
-        if users.include?(user_name)
-            puts "This username already exists, please login or sign up with a new user"
-        else
-            heart = prompt.decorate(prompt.symbols[:heart] + ' ', :magenta)
-            password = prompt.mask("Password", symbols: {mask: heart})
-            current_user = User.create({name: user_name, password: password})
-            break
-        end
+login_options = prompt.select('Sign in or create an account', [
+    "Login",
+    "Sign Up"
+])
+if(login_options == "Login")
+    user_name = prompt.ask("Username:")
+    heart = prompt.decorate(prompt.symbols[:heart] + ' ', :magenta)
+    password = prompt.mask("Password:", symbols: {mask: heart})
+    if users.include?(user_name) && User.find_by(password: password)
+        current_user = User.find_by(name: user_name)
+        break
+    else
+        puts "Username or password incorrect, please try again or sign up."
     end
+elsif(login_options == "Sign Up")
+    user_name = prompt.ask("Username:")
+    if users.include?(user_name)
+        puts "This username already exists, please login or sign up with a new user"
+    else
+        heart = prompt.decorate(prompt.symbols[:heart] + ' ', :magenta)
+        password = prompt.mask("Password", symbols: {mask: heart})
+        current_user = User.create({name: user_name, password: password})
+        break
+    end
+end
 end
 
 # User's options
@@ -49,6 +49,7 @@ loop do
         "Checkout"
     ])
 
+    # Browse available items
     if(user_choice == "Browse Items")
         selected_item = prompt.select('Choose an Item:', item_options)
         if selected_item.stock == 0
@@ -58,52 +59,49 @@ loop do
             selected_item.stock -= 1
             selected_item.save
         end
+        cart = Purchase.all.where(user_id: current_user.id)
     end
- 
-        if(user_choice == "View my Cart")
-            cart = current_user.purchases
-            # binding.pry
-            if cart.length > 0
-                cart.each do | purchase |
-                    puts "Item: #{purchase.item_name}, Price: #{purchase.total_price}"
-                end
-            else
-                puts "You have not made any purchases yet." # offer a coupon code here in the future
-            end  
-            loop do 
+
+    # View current items in cart
+    if(user_choice == "View my Cart")
+        cart = Purchase.all.where(user_id: current_user.id)
+        if cart.length > 0
+            cart.each do | purchase |
+                puts "Item: #{purchase.item_name}, Price: #{purchase.total_price}"
+            end
+        else
+            puts "You have not made any purchases yet." # offer a coupon code here in the future
+        end
+        
+        # Remove item from cart functionality 
+        loop do 
+            view_cart = cart.all.map {|item| item.item_name}
             cart_choices = prompt.select('What would you like to do?', [
                 "Remove an Item",
                 "Main Menu"
             ]) 
             if(cart_choices == "Remove an Item")
-                user_items = []
-                cart.each do | purchase |
-                    user_items << "#{purchase.id}, Item: #{purchase.item_name}, Price: #{purchase.total_price}"
-                end
-                item_to_delete = prompt.select("Which item would you like to remove?", user_items) 
+                item_to_delete = prompt.select("Which item would you like to remove?", view_cart) 
                 # item_to_delete = the item the user selects
-                binding.pry
-                delete_item = cart.find_by(item_to_delete)
-                if cart.include?(delete_item)
-                    cart.delete(delete_item)
-                    cart = current_user.purchases
-                end
-                puts cart
+                cart.find_by(item_name: item_to_delete).destroy
+                cart = Purchase.all.where(user_id: current_user.id)
+                puts cart.all.map {|item| item.item_name}
             end
             if(cart_choices == "Main Menu")
                 break
             end  
         end  
     end
-end 
 
-loop do 
+    # Checkout functionality
     if(user_choice == "Checkout")
         cart_total = 0
         current_user.purchases.each do | purchase |
             cart_total += purchase.total_price
         end
         puts cart_total
+
+        # Apply a discount
         discount_code = prompt.yes?("Do you have a discount code? ")
         if discount_code == true
             has_code = prompt.ask("Please enter your discount code: ")
@@ -120,13 +118,4 @@ loop do
             puts "Total is #{cart_total}"
         end 
     end
-end
-# def apply_discount
-#     if self.discount > 0
-#         self.discount = (self.discount.to_f * 0.01) * self.total
-#         self.total = (self.total - self.discount).to_i
-#         return "After the discount, the total comes to $800."
-#     else
-#         return "There is no discount to apply."
-#     end
-# end
+end 
