@@ -82,7 +82,9 @@ loop do
             ]) 
             if(cart_choices == "Remove an Item")
                 item_to_delete = prompt.select("Which item would you like to remove?", view_cart) 
-                # item_to_delete = the item the user selects
+                restock_item = Item.find_by(name: item_to_delete)
+                restock_item.stock += 1 
+                restock_item.save
                 cart.find_by(item_name: item_to_delete).destroy
                 cart = Purchase.all.where(user_id: current_user.id)
                 puts cart.all.map {|item| item.item_name}

@@ -10,11 +10,7 @@ fancy_pants = Item.create(name: "Fancy Pants", price: 150.00, stock: 10)
 fancy_shirt = Item.create(name: "Fancy Shirt", price: 75.49, stock: 0)
 shoe = Item.create(name: "Shoes", price: 50.50, stock: 10)
 fancy_underpants = Item.create(name: "Fancy Underpants", price: 30.32, stock: 10)
-<<<<<<< HEAD
-business_socks = Item.create(name: "Business Socks", price: 25.75)
-=======
 business_socks = Item.create(name: "Business Socks", price: 25.75, stock: 10)
->>>>>>> a932351892f2a39b53033742406f6c8d2af59355
 fedora = Item.create(name: "M'Lady Fedora", price: 30.01, stock: 10)
 
 code10 = Discount.create(name: "CODE10", value: 10)
