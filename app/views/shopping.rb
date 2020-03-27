@@ -80,7 +80,7 @@ def shop
             end
 
             if (payment_options == "Continue Shopping")
-                break
+                next
             end
         end
     
