@@ -1,3 +1,3 @@
 class Item < ActiveRecord::Base
-    has_many(:purchases)
+    has_many(:cart_items)
 end 

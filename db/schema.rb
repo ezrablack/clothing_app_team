@@ -12,6 +12,13 @@
 
 ActiveRecord::Schema.define(version: 2020_03_25_215800) do
 
+  create_table "cart_items", force: :cascade do |t|
+    t.integer "item_id"
+    t.integer "user_id"
+    t.string "item_name"
+    t.float "total_price"
+  end
+
   create_table "discounts", force: :cascade do |t|
     t.string "name"
     t.integer "value"
@@ -21,13 +28,6 @@ ActiveRecord::Schema.define(version: 2020_03_25_215800) do
     t.string "name"
     t.float "price"
     t.integer "stock"
-  end
-
-  create_table "purchases", force: :cascade do |t|
-    t.integer "item_id"
-    t.integer "user_id"
-    t.string "item_name"
-    t.float "total_price"
   end
 
   create_table "users", force: :cascade do |t|
