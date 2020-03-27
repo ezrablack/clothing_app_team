@@ -49,7 +49,7 @@ def shop
             $current_user.purchases.each do | purchase |
                 cart_total += purchase.total_price
             end
-            puts cart_total
+            puts "Your total is ".green + "#{cart_total}"
     
             # Apply a discount
             discount_code = $prompt.yes?("\nDo you have a discount code?\n".yellow)
@@ -66,7 +66,22 @@ def shop
                 end
             else 
                 puts "Your total is ".green + "#{cart_total}"
-            end 
+            end
+
+            payment_options = $prompt.select("Options", [
+                "Pay Now",
+                "Continue Shopping"
+            ])
+
+            if (payment_options == "Pay Now")
+                puts "\nPayment Successful".green
+                puts "Your order # is #{rand(10000..19999)}\n"
+                $current_user.purchases.destroy(Purchase.all.where(user_id: $current_user.id))
+            end
+
+            if (payment_options == "Continue Shopping")
+                break
+            end
         end
     
         if(user_choice == "Logout")
