@@ -18,8 +18,9 @@ def shop
             cart = CartItem.all.where(user_id: $current_user.id)
             if cart.length > 0
                 cart.each do | cart_item |
-                    puts "Item: #{cart_item.item_name}, Price: #{cart_item.total_price}"
+                    puts "\nItem: #{cart_item.item_name}, Price: #{cart_item.total_price}"
                 end
+            puts "\n"
             else
                 puts "\nYou have not added any items to your cart yet.".red # offer a coupon code here in the future
                 puts "If you're hesitant to purchase an item, use coupon code " + "'CODE10' ".green + "for 10% off at checkout.\n\n"
@@ -49,7 +50,7 @@ def shop
             $current_user.cart_items.each do | cart_item |
                 cart_total += cart_item.total_price
             end
-            puts "Your total is ".green + "#{cart_total}"
+            puts "\nYour total is ".green + "#{cart_total}"
     
             # Apply a discount
             discount_code = $prompt.yes?("\nDo you have a discount code?\n".yellow)

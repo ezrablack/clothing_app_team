@@ -1,5 +1,8 @@
 require_relative './config/environment.rb'
 
+old_logger = ActiveRecord::Base.logger
+ActiveRecord::Base.logger = nil
+
 $current_user = nil
 $item_options = Item.all.map {| item | {name: item.name, value: item}}
 
