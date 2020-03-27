@@ -10,14 +10,7 @@ def shop
         # Browse available items
         if(user_choice == "Browse Items")
             selected_item = $prompt.select('Choose an Item:', $item_options)
-            if selected_item.stock == 0
-                puts "\n#{selected_item.name} is currently out of stock.\n".red
-            else
-                Purchase.create(item_id: selected_item.id, user_id: $current_user.id, item_name: selected_item.name, total_price: selected_item.price)
-                selected_item.stock -= 1
-                selected_item.save
-            end
-            cart = Purchase.all.where(user_id: $current_user.id)
+            cart = $current_user.add_to_cart(selected_item)
         end
     
         # View current items in cart
