@@ -1,7 +1,7 @@
 User.destroy_all
 Item.destroy_all
 Discount.destroy_all
-Purchase.destroy_all
+CartItem.destroy_all
 
 d_angelo = User.create(name: "D'Angelo", password: "123")
 chris = User.create(name: "Chris Angel", password: "123")

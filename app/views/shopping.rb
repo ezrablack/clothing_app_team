@@ -15,10 +15,10 @@ def shop
     
         # View current items in cart
         if(user_choice == "View my Cart")
-            cart = Purchase.all.where(user_id: $current_user.id)
+            cart = CartItem.all.where(user_id: $current_user.id)
             if cart.length > 0
-                cart.each do | purchase |
-                    puts "Item: #{purchase.item_name}, Price: #{purchase.total_price}"
+                cart.each do | cart_item |
+                    puts "Item: #{cart_item.item_name}, Price: #{cart_item.total_price}"
                 end
             else
                 puts "\nYou have not added any items to your cart yet.".red # offer a coupon code here in the future
@@ -46,8 +46,8 @@ def shop
         # Checkout functionality
         if(user_choice == "Checkout")
             cart_total = 0
-            $current_user.purchases.each do | purchase |
-                cart_total += purchase.total_price
+            $current_user.cart_items.each do | cart_item |
+                cart_total += cart_item.total_price
             end
             puts "Your total is ".green + "#{cart_total}"
     
@@ -75,8 +75,8 @@ def shop
 
             if (payment_options == "Pay Now")
                 puts "\nPayment Successful".green
-                puts "Your order # is #{rand(10000..19999)}\n"
-                $current_user.purchases.destroy(Purchase.all.where(user_id: $current_user.id))
+                puts "Your order # is #{rand(10000..19999)}\n\n"
+                $current_user.cart_items.destroy(CartItem.all.where(user_id: $current_user.id))
             end
 
             if (payment_options == "Continue Shopping")
